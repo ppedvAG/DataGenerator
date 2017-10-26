@@ -8,6 +8,8 @@ Param(
     [int]$countCustomers = 100
 )
 
+Import-Module SqlPs
+
 Add-Type -Path ".\Tynamix.ObjectFiller.dll"
 Add-Type -Path ".\DataGenerator.dll"
 $generator = New-Object DataGenerator.Generator
