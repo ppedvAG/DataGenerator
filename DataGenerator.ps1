@@ -12,6 +12,15 @@ Param(
 #prüfen ob Modul oder die DLL dateien überhaupt existieren ?
 Import-Module SqlPs
 
+if (-Not (Test-Path ".\Tynamix.ObjectFiller.dll")) {
+    Write-Output ".\Tynamix.ObjectFiller.dll does not exist."
+    exit
+}
+if (-Not (Test-Path ".\DataGenerator.dll")) {
+    Write-Output ".\DataGenerator.dll does not exist."
+    exit
+}
+
 Add-Type -Path ".\Tynamix.ObjectFiller.dll"
 Add-Type -Path ".\DataGenerator.dll"
 $generator = New-Object DataGenerator.Generator
@@ -50,7 +59,7 @@ function CreateAndInsertCustomersWithOrders {
         foreach($o in $c.Orders)
         {
             $insertOrderCommand = "insert into orders(CustomerID, OrderDate, Freight) values ((select max(src.customerid) from customers as src), '" + $o.OrderDate + "', " + $o.Freight + ")"
-            #$insertOrderCommand
+
             Invoke-Sqlcmd -Query $insertOrderCommand -ServerInstance $server -Username $user -Password $password -database $database
             
             foreach($od in $o.OrderDetails)
