@@ -4,9 +4,9 @@ Param(
     [string]$database = "SampleData",
     [string]$user = "sa",
     [string]$password = "ppedv!2017",
-    #[ValidateRange(1,4294967295)]
+    [ValidateRange(1, 2147483647)]
     [int]$countProducts = 50,
-    #[ValidateRange(1,4294967295)]
+    [ValidateRange(1, 2147483647)]
     [int]$countCustomers = 100
 )
 #prüfen ob Modul oder die DLL dateien überhaupt existieren ?
