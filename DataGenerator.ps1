@@ -9,7 +9,11 @@ Param(
     [ValidateRange(1, 2147483647)]
     [int]$countCustomers = 100
 )
-#prüfen ob Modul oder die DLL dateien überhaupt existieren ?
+
+if (-Not (Get-Module -ListAvailable -Name SqlPs)) {
+    Write-Output "SqlPs Module is required. Please install SqlPs Module."
+    exit
+}
 Import-Module SqlPs
 
 if (-Not (Test-Path ".\Tynamix.ObjectFiller.dll")) {
